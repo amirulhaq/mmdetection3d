@@ -49,11 +49,11 @@ __global__ void assign_score_withk_forward_kernel(const int B, const int N0, con
                                                   const float* points,
                                                   const float* centers,
                                                   const float* scores,
-                                                  const long* knn_idx,
+                                                  const int64_t* knn_idx,
                                                   float* output) {
 
     // ----- parallel loop for B, N1, K and O ---------
-    long i = blockIdx.x * blockDim.x + threadIdx.x;
+    int64_t i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i >= B*N1*K*O) return;
     // ------- loop for M ----------
     for (int m = 0; m < M; m++) {
@@ -82,12 +82,12 @@ __global__ void assign_score_withk_backward_points_kernel(const int B, const int
                                                           const int K, const int O, const int aggregate,
                                                           const float* grad_out,
                                                           const float* scores,
-                                                          const long* knn_idx,
+                                                          const int64_t* knn_idx,
                                                           float* grad_points,
                                                           float* grad_centers) {
 
     // ----- parallel loop for B, M, O ---------
-    long i = blockIdx.x * blockDim.x + threadIdx.x;
+    int64_t i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i >= B*M*O) return;
     int b = (int)(i / (M * O));
     int m = (int)(i % (M * O) / O);
@@ -116,11 +116,11 @@ __global__ void assign_score_withk_backward_scores_kernel(const int B, const int
                                                           const float* grad_out,
                                                           const float* points,
                                                           const float* centers,
-                                                          const long* knn_idx,
+                                                          const int64_t* knn_idx,
                                                           float* grad_scores) {
 
     // ----- parallel loop for B, N, K, M ---------
-    long i = blockIdx.x * blockDim.x + threadIdx.x;
+    int64_t i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i >= B*N*K*M) return;
     int b = (int)(i / (N * M * K));
     int n = (int)(i % (N * M * K) / M / K);
@@ -156,7 +156,7 @@ void assign_score_withk_forward_wrapper(int B, int N0, int N1, int M, int K, int
     const float* points_data = points.data_ptr<float>();
     const float* centers_data = centers.data_ptr<float>();
     const float* scores_data = scores.data_ptr<float>();
-    const long* knn_idx_data = knn_idx.data_ptr<long>();
+    const int64_t* knn_idx_data = knn_idx.data_ptr<int64_t>();
     float* output_data = output.data_ptr<float>();
 
     dim3 blocks(DIVUP(B*O*N1*K, THREADS_PER_BLOCK));
@@ -191,7 +191,7 @@ void assign_score_withk_backward_wrapper(int B, int N0, int N1, int M, int K, in
     const float* points_data = points.data_ptr<float>();
     const float* centers_data = centers.data_ptr<float>();
     const float* scores_data = scores.data_ptr<float>();
-    const long* knn_idx_data = knn_idx.data_ptr<long>();
+    const int64_t* knn_idx_data = knn_idx.data_ptr<int64_t>();
     float* grad_points_data = grad_points.data_ptr<float>();
     float* grad_centers_data = grad_centers.data_ptr<float>();
     float* grad_scores_data = grad_scores.data_ptr<float>();

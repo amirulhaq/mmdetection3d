@@ -50,7 +50,7 @@ void check_torch_dtype(const torch::Tensor &tensor) {
       break;
     }
     case at::ScalarType::Long: {
-      auto val = std::is_same<std::remove_const_t<T>, long>::value;
+      auto val = std::is_same<std::remove_const_t<T>, int64_t>::value;
       TV_ASSERT_RT_ERR(val, "error");
       break;
     }
