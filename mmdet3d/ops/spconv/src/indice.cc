@@ -77,7 +77,7 @@ struct CreateSubMIndicePairFunctor<tv::CPU, Index, IndexGrid, NDim> {
   DECLARE_CPU_SPECS_INDEX_NDIM(Index, 4);
 
 DECLARE_CPU_INDEX(int);
-DECLARE_CPU_INDEX(long);
+DECLARE_CPU_INDEX(int64_t);
 
 #undef DECLARE_CPU_INDEX
 #undef DECLARE_CPU_SPECS_INDEX_NDIM
