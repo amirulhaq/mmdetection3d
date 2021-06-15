@@ -113,7 +113,26 @@ Other features
 
 **Note:** All the about **300+ models, methods of 40+ papers** in 2D detection supported by [MMDetection](https://github.com/open-mmlab/mmdetection/blob/master/docs/model_zoo.md) can be trained or used in this codebase.
 
+## Fork Notes
+This fork is specifically created to adopt the code to work on Windows OS. Several notable changes made:
+1. Change 'const float EPS = 1e-8;' to '#define EPS 1e-8' in mmdet3d/ops/iou3d/src/iou3d_kernel.cu
+2. Change C++ type 'long' to 'uint64_t' in mmdet3d/ops/iou3d/src/iou3d.cpp, mmdet3d/ops/paconv/src/assign_score_withk_cuda.cu, and mmdet3d/ops/spconv/src/indice.cc
+3. Change dynamically allocated array in mmdet3d/ops/iou3d/src/iou3d.cpp and mmdet3d/ops/voxel/src/voxelization_cpu.cpp
+
 ## Installation
+Requirements for this particular fork (MMDet3D 0.14.0):
+1. Pytorch = 1.7.0
+2. Cuda = 11.0
+3. Torchvision = 0.8.0
+4. Torchaudio = 0.7.0
+5. Shapely = 1.7.1 (Important! In windows you should use shapely from conda-forge channel)
+6. Numpy = 1.19.5
+7. MSVC-Runtime = 14.29.30036
+8. MMCV-Full = 1.3.6
+9. MMDet = 2.11.0
+10. MMSegmentation = 0.14.0
+
+You might also need to install [Microsoft Visual C++ Redistributable for Visual Studio 2015, 2017 and 2019,](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads) to make sure the all of the C++ dependencies works.
 
 Please refer to [getting_started.md](docs/getting_started.md) for installation.
 
