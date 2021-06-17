@@ -14,7 +14,8 @@ All Rights Reserved 2019-2020.
 //#define DEBUG
 const int THREADS_PER_BLOCK_NMS = sizeof(unsigned long long) * 8;
 //const float EPS = 1e-8;
-#define EPS 1e-8
+#define EPS 1e-8 // Because the decalaration above does not works (maybe need to add extern?)
+// Also change long to int64_t
 
 struct Point {
   float x, y;
