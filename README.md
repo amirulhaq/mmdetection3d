@@ -116,7 +116,7 @@ Other features
 ## Fork Notes
 This fork is specifically created to adopt the code to work on Windows OS. Several notable changes made:
 1. Change **'const float EPS = 1e-8;'** to **'#define EPS 1e-8'** in mmdet3d/ops/iou3d/src/iou3d_kernel.cu
-2. Change C++ type **'long'** to **'uint64_t'** in mmdet3d/ops/iou3d/src/iou3d.cpp, mmdet3d/ops/paconv/src/assign_score_withk_cuda.cu, and mmdet3d/ops/spconv/src/indice.cc
+2. Change C++ type **'long'** to **'int64_t'** in mmdet3d/ops/iou3d/src/iou3d.cpp, mmdet3d/ops/paconv/src/assign_score_withk_cuda.cu, and mmdet3d/ops/spconv/src/indice.cc
 3. Change dynamically allocated array in mmdet3d/ops/iou3d/src/iou3d.cpp and mmdet3d/ops/voxel/src/voxelization_cpu.cpp
 4. If you are using conda, please install shapely from conda-forge channel. If it is already installed from PIP, you need to uninstall it first.
 
